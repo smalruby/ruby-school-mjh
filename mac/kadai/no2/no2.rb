@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'r2d'
 
 window width: 640, height: 480
