@@ -1,20 +1,34 @@
-# coding: utf-8
-
 require 'r2d'
-win = window width: 640, height: 480
-PI = 3.1415
-ten = []
+
+include Math
+
+w = window
 
 n = 2
-t = 1 
-obj = Rectangle.new(100,100, 10, 10, "yellow")
+t = 1
+s = Square.new(100, 100, 5, 'green')
+ten = []
+
+n2 = 10
+s2 = Square.new(100, 100, 5, 'purple')
+ten2 = []
+
 update do
- rad= t * (PI / 180)
- obj.x = (win.w/2) + 100*Math.cos(rad * n) * Math.cos(rad)
- obj.y = (win.h/2) + 100*Math.cos(rad * n) * Math.sin(rad)
- ten.push(Rectangle.new(obj.x,obj.y, 1, 1, "blue"))
- t += 1
+  rad = t * (PI / 180)
+  s.x = w.w / 2 + 100 * cos(rad * n) * cos(rad)
+  s.y = w.h / 2 + 100 * cos(rad * n) * sin(rad)
+  ten << Square.new(s.x, s.y, 2, 'yellow')
+  if ten.length > 180
+    ten.shift.remove
+  end
+  t += 1
+
+  s2.x = w.w / 2 + 100 * cos(rad * n2) * cos(rad)
+  s2.y = w.h / 2 + 100 * cos(rad * n2) * sin(rad)
+  ten2 << Square.new(s2.x, s2.y, 2, 'random')
+  if ten2.length > 180
+    ten2.shift.remove
+  end
 end
- Text.new(150,400, 50,  "HELLO WORLD!!")
 
 window :show
