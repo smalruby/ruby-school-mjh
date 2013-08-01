@@ -43,25 +43,6 @@ key_down 'right' do
   gun.x = (gun.x + 5) % w.w
 end
 
-def hit_check(e, m)
-  r = e.x + e.width > m.x && e.x < m.x + m.width &&
-    e.y + e.height > m.y && e.y < m.y + m.height
-  if r || m.y < 0 || m.y > (BOTTOM - 50)
-    m.remove
-  end
-  return r
-end
-
-def gage_mgt(gage, hp, max_hp)
-  gage.width = (max_hp.to_f * hp / max_hp).to_i
-end
-
-def final_message(msg, gage)
-  Rectangle.new(100, 100, 440, 150, 'red')
-  Text.new(150, 150, 50, msg)
-  gage.width = 0
-end
-
 switch = true
 
 update do
@@ -74,18 +55,10 @@ update do
   
   bomb.each do |b|
     b.y -= 6
-    if hit_check(ufo, b)
-      ufo_hp -= 1 
-      gage_mgt(ufo_gage, ufo_hp, MAX_HP)
-    end
   end
   
   enemy.each do |e|
     e.y += 6
-    if hit_check(gun, e)
-      my_hp -= 1 
-      gage_mgt(my_gage, my_hp, MAX_HP)
-    end
   end
   
   if switch
@@ -98,16 +71,6 @@ update do
     if ufo.x <= 0
       switch = true
     end
-  end
-
-  if ufo_hp <= 0 && my_hp > 0
-    final_message('GAME CLEAR !!', ufo_gage)
-    playing = false
-  end
-
-  if ufo_hp > 0 && my_hp <= 0
-    final_message('GAME ORVER...', my_gage)
-    playing = false
   end
 end
 

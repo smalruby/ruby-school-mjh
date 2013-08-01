@@ -56,12 +56,6 @@ def gage_mgt(gage, hp, max_hp)
   gage.width = (max_hp.to_f * hp / max_hp).to_i
 end
 
-def final_message(msg, gage)
-  Rectangle.new(100, 100, 440, 150, 'red')
-  Text.new(150, 150, 50, msg)
-  gage.width = 0
-end
-
 switch = true
 
 update do
@@ -98,16 +92,6 @@ update do
     if ufo.x <= 0
       switch = true
     end
-  end
-
-  if ufo_hp <= 0 && my_hp > 0
-    final_message('GAME CLEAR !!', ufo_gage)
-    playing = false
-  end
-
-  if ufo_hp > 0 && my_hp <= 0
-    final_message('GAME ORVER...', my_gage)
-    playing = false
   end
 end
 
